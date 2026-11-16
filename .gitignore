@@ -1,0 +1,22 @@
+# Generated Suricata and test logs
+*.log
+fast.log
+eve.json
+stats.log
+suricata.pid
+
+# Packet captures
+*.pcap
+*.pcapng
+
+# Local secrets and environment files
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/

@@ -1,0 +1,11 @@
+# Suricata local rules used in the VMware IDS/IPS lab.
+# Lab addresses: Kali 192.168.183.128, Ubuntu 192.168.183.129.
+# Review and adapt HOME_NET, interface, and addresses before reuse.
+
+alert http any any -> $HOME_NET 8080 (msg:"LAB HTTP Admin Path Access"; flow:established,to_server; http.uri; content:"/admin"; sid:1000001; rev:1;)
+
+alert tcp any any -> $HOME_NET any (msg:"LAB Possible TCP SYN Port Scan";flags:S; flow:stateless; threshold:type both, track by_src, count 10, seconds 5; classtype:attempted-recon; sid:1000002; rev:1;)
+
+drop http any any -> $HOME_NET 8080 (msg:"LAB IPS BLOCKED HTTP Admin Path"; flow:established,to_server; http.uri; content:"/admin"; sid:1000003; rev:3;)
+
+drop tcp 192.168.183.128 any -> 192.168.183.129 8080 (msg:"LAB IPS TEST TCP CONNECTION DROP"; flags:S; sid:1000004; rev:1;)
